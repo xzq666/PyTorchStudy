@@ -49,7 +49,8 @@ if __name__ == '__main__':
     """
     用于测试
     """
-    face_dataset = MyFacialKeyPointsDataset(csv_file='./data/training_frames_keypoints.csv', root_dir='./data/training/')
+    face_dataset = MyFacialKeyPointsDataset(csv_file='./data/training_frames_keypoints.csv',
+                                            root_dir='./data/training/')
     print("数据集大小：{}".format(len(face_dataset)))
     # 显示一些图像看看有没有出错
     num_to_display = 3
