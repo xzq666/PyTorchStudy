@@ -101,7 +101,7 @@ def visualize_output(test_images, test_outputs, gt_pts=None, batch_size=10):
 
 # 定义损失函数与优化器
 criterion = nn.SmoothL1Loss()
-optimizer = optim.Adam(net.parameters(), lr=0.001)
+optimizer = optim.Adam(net.parameters(), lr=0.0001)
 
 
 def train_net(n_epochs):
@@ -132,14 +132,19 @@ def train_net(n_epochs):
             optimizer.step()
             # 每10次输出一次
             running_loss += loss.item()
-            if i % 9 == 0:
+            if i % 10 == 0:
                 print('Epoch: {}, Batch: {}, Avg. Loss: {}'.format(epoch + 1, i + 1, running_loss / 10))
                 running_loss = 0.0
 
 
 # 从小开始 在确定模型结构和超参数时增加
-n_epochs = 10
+n_epochs = 30
 train_net(n_epochs)
 # 测试模型
 test_images, test_outputs, label_pts = net_sample_output()
 visualize_output(test_images, test_outputs, label_pts)
+
+# 存储模型
+model_dir = 'saved_models/'
+model_name = 'krunal_keypoints_model_lr001_epoch100.pt'
+torch.save(net.state_dict(), model_dir+model_name)
